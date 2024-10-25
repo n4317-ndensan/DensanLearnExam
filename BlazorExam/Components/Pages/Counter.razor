@@ -1,19 +1,40 @@
-﻿@page "/counter"
+@page "/counter"
 @rendermode InteractiveServer
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
-<p role="status">Current count: @currentCount</p>
+<p role="status" style="color: @strCountColor">Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="IncrementCount">Increment</button>
+<button class="btn btn-dark" @onclick="DecrementCount">Decrement</button>
 
 @code {
     private int currentCount = 0;
+    private string strCountColor = "black";
 
     private void IncrementCount()
     {
         currentCount++;
+        SetCountColor();
+    }
+
+    private void DecrementCount()
+    {
+        currentCount--;
+        SetCountColor();
+    }
+
+    private void SetCountColor()
+    {
+        if (currentCount >= 1 && currentCount <= 5)
+        {
+            strCountColor = "red";
+        }
+        else
+        {
+            strCountColor = "black";
+        }
     }
 }
