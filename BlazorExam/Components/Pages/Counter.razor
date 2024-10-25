@@ -7,8 +7,8 @@
 
 <p role="status" style="color: @strCountColor">Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Increment</button>
-<button class="btn btn-dark" @onclick="DecrementCount">Decrement</button>
+<RadzenButton class="btn btn-primary" Click="@IncrementCount">Increment RadzenBtn</RadzenButton>
+<RadzenButton class="btn btn-dark" Click="@DecrementCount">Decrement RadzenBtn</RadzenButton>
 
 @code {
     private int currentCount = 0;
