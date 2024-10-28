@@ -1,0 +1,51 @@
+@page "/addtask"
+@using BlazorExam.Models
+@rendermode InteractiveServer
+
+<PageTitle>AddTask</PageTitle>
+
+<h3>タスク追加</h3>
+
+<EditForm Model="taskModel" OnValidSubmit="HandleValidSubmit" FormName="AddTask">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label for="taskTitle" class="form-label">
+            題名:
+        </label>
+        <InputText id="taskTitle" class="form-control" @bind-Value="taskModel.Title" />
+        <ValidationMessage For="()=> taskModel.Title" class="text-danger" />
+    </div>
+
+    <div class="mb-3">
+        <label for="taskDueDate" class="form-label">
+            期限:
+        </label>
+        <InputDate id="taskDueDate" class="form-control" @bind-Value="taskModel.DueDate" />
+        <ValidationMessage For="()=> taskModel.DueDate" class="text-danger" />
+    </div>
+
+    <div class="mb-3">
+        <label for="taskStatus" class="form-label">
+            状態:
+        </label>
+        <InputSelect id="taskStatus" class="form-select" @bind-Value="taskModel.Status">
+            @foreach (object valueOfStatus in Enum.GetValues(typeof(TaskModel.TaskModelStatus)))
+            {
+                <option value="@valueOfStatus.ToString()">@Enum.GetName(typeof(TaskModel.TaskModelStatus), valueOfStatus)</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="()=> taskModel.Status" class="text-danger" />
+    </div>
+
+    <div class="mb-3">
+        <label for="taskContent" class="form-label">
+            内容:
+        </label>
+        <InputTextArea id="taskContent" class="form-control" @bind-Value="taskModel.Content" />
+        <ValidationMessage For="()=> taskModel.Content" class="text-danger" />
+    </div>
+
+    <button class="btn btn-dark" @onclick="HandleCancel" type="button">戻す</button>
+    <button type="submit" class="btn btn-primary">登録</button>
+</EditForm>

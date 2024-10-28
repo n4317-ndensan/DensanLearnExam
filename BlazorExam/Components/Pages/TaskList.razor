@@ -1,0 +1,32 @@
+@page "/tasklist"
+@using BlazorExam.Models
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+<PageTitle>TaskList</PageTitle>
+<h3>タスク一覧</h3>
+
+<div>
+    <RadzenButton class="btn btn-primary" Click="@HandleAddTask">タスク追加</RadzenButton>
+</div>
+@if (hasSession == true)
+{
+    <RadzenDataGrid Data="@tasks" TItem="TaskModel" ColumnWidth="200px" AllowPaging="true" PageSize="10" EmptyText="データがありません。" >
+        <Columns>
+            <RadzenDataGridColumn TItem="TaskModel" Property="Title" Title="題名" Width="100px" />
+            <RadzenDataGridColumn TItem="TaskModel" Property="DueDate" Title="期限" Width="150px" >
+                <Template>
+                    @context.DueDate.ToString("yyyy/MM/dd")
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="TaskModel" Property="Status" Title="状態" Width="150px"/>
+            <RadzenDataGridColumn TItem="TaskModel" Property="Content" Title="内容" Width="300px" >
+                <Template>@context.Content.Split(['\n', '\r'])[0]</Template>
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+}
+else
+{
+    <p>タスク一覧を読み込み中........</p>
+}
